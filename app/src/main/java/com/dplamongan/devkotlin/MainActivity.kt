@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     private fun niceToast(message: String,tag: String = "Info",length: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(this, "$tag : $message", length).show()
     }
-    
+
     private fun httpreq(){
         AndroidNetworking.get("https://jsonplaceholder.typicode.com/posts")
             .setPriority(Priority.LOW)
