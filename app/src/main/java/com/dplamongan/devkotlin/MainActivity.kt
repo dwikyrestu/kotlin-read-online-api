@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.dplamongan.devkotlin.databinding.Item1Binding
 import com.dplamongan.devkotlin.databinding.Item2Binding
 import com.dplamongan.devkotlin.databinding.ItemBinding
+import com.dplamongan.devkotlin.databinding.CardviewPostBinding
 import com.simpleadapter.SimpleAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item.view.*
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         for (i in 0 until response.length()) {
             try {
                 val obj = response.getJSONObject(i)
-                list.add(User(obj.getString("id"),obj.getString("title")))
+                list.add(User(obj.getString("title"),obj.getString("body")))
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
@@ -68,14 +69,17 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
 
         //Create adapter
-        val adapter2 = SimpleAdapter.with<User, ItemBinding>(R.layout.item) { adapterPosition, model, binding ->
-            binding.textId.text = model.name+" "+model.last_name;
+        val adapter2 = SimpleAdapter.with<User, CardviewPostBinding>(R.layout.cardview_post) { adapterPosition, model, binding ->
+//            binding.textId.text = model.name+" "+model.last_name;
+            binding.title.text = model.name;
+            binding.description.text = model.last_name;
         }
+
 
         //clickable views
         adapter2.setClickableViews({ view, model, adapterPosition ->
             Toast.makeText(this@MainActivity, "${model.name} clicked", Toast.LENGTH_SHORT).show()
-        }, R.id.text, R.id.text1, R.id.text2)
+        }, R.id.text, R.id.text1, R.id.text2, R.id.card_view)
 
         //for filtering
         adapter2.performFilter(text = "", filterLogic = { text, model ->
