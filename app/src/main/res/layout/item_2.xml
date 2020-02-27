@@ -1,17 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="horizontal">
 
-        <TextView
-                android:id="@+id/text2"
+        <com.omjoonkim.skeletonloadingview.SkeletonLoadingView
+                android:id="@+id/titleloading"
+                android:layout_width="150dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="16dp"
+                app:baseColor="#e8e6e6"
+                app:deepColor="#f2f2f2"
+                app:duration="5000"
+                app:interval="1500"
+                app:progressLength="120dp"
+                app:radius="5dp"
+                app:autoStart="true"
+        />
+
+        <com.omjoonkim.skeletonloadingview.SkeletonLoadingView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="16dp"
-                android:text="Pankaj" />
-    </LinearLayout>
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/titleloading"
+                app:baseColor="#e8e6e6"
+                app:deepColor="#f2f2f2"
+                app:duration="1500"
+                app:interval="1000"
+                app:progressLength="120dp"
+                app:radius="5dp"
+                android:layout_marginRight="10dp"/>
+
+        <View
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#f2f2f2"/>
+    </RelativeLayout>
 </layout>

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import com.dplamongan.devkotlin.databinding.Item1Binding
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        showLoading()
         httpreq()
     }
 
@@ -39,9 +41,29 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, "$tag : $message", length).show()
     }
 
+    private fun showLoading(){
+        val list = ArrayList<User>()
+
+        for (i in 0..10) {
+            list.add(User("$i","nama $i"))
+        }
+
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView);
+        recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+
+        //Create adapter
+        val adapter2 = SimpleAdapter.with<User, Item2Binding>(R.layout.item_2) { adapterPosition, model, binding ->
+            //            binding.textId.text = model.name+" "+model.last_name;
+        }
+
+        adapter2.addAll(list)
+        adapter2.notifyDataSetChanged()
+        recyclerView.adapter = adapter2
+    }
+
     private fun httpreq(){
         AndroidNetworking.get("https://jsonplaceholder.typicode.com/posts")
-            .setPriority(Priority.LOW)
+            .setPriority(Priority.MEDIUM)
             .build()
             .getAsJSONArray(object : JSONArrayRequestListener {
                 override fun onResponse(response: JSONArray) {
@@ -65,7 +87,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView);
         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
 
         //Create adapter
@@ -74,7 +96,6 @@ class MainActivity : AppCompatActivity() {
             binding.title.text = model.name;
             binding.description.text = model.last_name;
         }
-
 
         //clickable views
         adapter2.setClickableViews({ view, model, adapterPosition ->
@@ -97,7 +118,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 adapter2.performFilter(p0.toString()) { text, model ->
-                    model.name.startsWith(text) or model.last_name.startsWith(text)
+                    model.name.contains(text) or model.last_name.contains(text)
                 }
             }
         })

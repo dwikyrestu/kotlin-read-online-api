@@ -45,4 +45,7 @@ dependencies {
 
     //FAST Networking : HTTP Request
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
+
+    //Skeleton Animation View
+    implementation 'com.omjoonkim.library:skeleton-loading-view:0.1.3'
 }
